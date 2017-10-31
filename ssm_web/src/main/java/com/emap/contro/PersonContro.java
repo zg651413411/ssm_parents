@@ -5,6 +5,7 @@ import com.emap.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import redis.clients.jedis.Jedis;
 
 
 @Controller
@@ -43,5 +44,11 @@ public class PersonContro {
     public String deletePerson(){
         personService.deleteByPrimaryKey(2);
         return "";
+    }
+
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("localhost", 6379);
+        jedis.sadd("singleJedis", "hello jedis!");
+        System.err.println(jedis.smembers("singleJedis"));
     }
 }
